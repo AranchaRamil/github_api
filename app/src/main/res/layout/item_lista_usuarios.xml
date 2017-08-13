@@ -1,0 +1,60 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="?android:attr/listPreferredItemHeight"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/avatar"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/add_64" />
+
+    <RelativeLayout
+        android:id="@+id/rel1"
+        android:layout_width="wrap_content"
+        android:layout_height="62dp"
+        android:paddingLeft="72dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:id="@+id/nombre_usuario"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingBottom="2dp"
+            android:text="Start"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="62dp"
+        android:layout_below="@+id/rel1"
+        android:layout_centerVertical="true"
+        android:paddingLeft="72dp"
+        android:paddingRight="16dp">
+
+
+        <TextView
+            android:id="@+id/url_usuario"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="End"
+            android:singleLine="true"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
