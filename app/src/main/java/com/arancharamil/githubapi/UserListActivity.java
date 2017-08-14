@@ -19,7 +19,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class ListaUsuariosActivity extends AppCompatActivity {
+public class UserListActivity extends AppCompatActivity {
 
 
     @Bind(R.id.toolbar_lista_usuarios)
@@ -37,7 +37,6 @@ public class ListaUsuariosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lista_usuarios);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar_lista);
-        retrofit = RestClient.getRetrofitInstance();
         //Llamada al servicio que nos devuelve los usuarios de GitHub
         getUsuarios();
 
@@ -50,7 +49,7 @@ public class ListaUsuariosActivity extends AppCompatActivity {
 
     private void getUsuarios() {
         itemListServicesRetry = 0;
-        GitHubService service = retrofit.create(GitHubService.class);
+        GitHubService service = RestClient.getRetrofitInstance(this).create(GitHubService.class);
 
         Call<List<UserGitHub>> call = service.getUsers();
 
@@ -63,7 +62,7 @@ public class ListaUsuariosActivity extends AppCompatActivity {
                 if (response.body() != null) {
                     lista = response.body();
                     listado_usuarios.setEmptyView(findViewById(R.id.listado_usuarios_vacio));
-                    adapter = new ListaUsuariosAdapter(ListaUsuariosActivity.this, response.body());
+                    adapter = new ListaUsuariosAdapter(UserListActivity.this, response.body());
                     listado_usuarios.setAdapter(adapter);
 
 
