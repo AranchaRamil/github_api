@@ -3,6 +3,7 @@ package com.arancharamil.githubapi;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.ListView;
 
 import com.arancharamil.githubapi.adapters.ListaUsuariosAdapter;
@@ -26,6 +27,9 @@ public class UserListActivity extends AppCompatActivity {
     Toolbar toolbar_lista;
     @Bind(R.id.lista_usuarios)
     ListView listado_usuarios;
+    @Bind(R.id.listado_usuarios_vacio)
+    ListView listado_usuarios_vacio;
+
     public Retrofit retrofit;
     public static int itemListServicesRetry;
     private static final int USUARIOS_LIST = 1;
@@ -38,14 +42,18 @@ public class UserListActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar_lista);
         //Llamada al servicio que nos devuelve los usuarios de GitHub
-        getUsuarios();
+       // getUsuarios();
 
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("GITHUB->", "onResume");
+        getUsuarios();
 
-
-
+    }
 
     private void getUsuarios() {
         itemListServicesRetry = 0;
@@ -61,7 +69,7 @@ public class UserListActivity extends AppCompatActivity {
                 List<UserGitHub> lista;
                 if (response.body() != null) {
                     lista = response.body();
-                    listado_usuarios.setEmptyView(findViewById(R.id.listado_usuarios_vacio));
+                    listado_usuarios.setEmptyView(listado_usuarios_vacio);
                     adapter = new ListaUsuariosAdapter(UserListActivity.this, response.body());
                     listado_usuarios.setAdapter(adapter);
 
