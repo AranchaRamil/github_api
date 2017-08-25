@@ -1,6 +1,7 @@
 package com.arancharamil.githubapi.adapters;
 
 import android.content.Context;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,10 +9,14 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.arancharamil.githubapi.R;
+import com.arancharamil.githubapi.UserListActivity;
 import com.arancharamil.githubapi.rest.UserGitHub;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Created by arancharamilredondo on 23/7/17.
@@ -28,7 +33,12 @@ public class ListaUsuariosAdapter  extends BaseAdapter {
     private UpdateCallback callback;
     Context context;
 
-
+    @Bind(R.id.nombre_usuario)
+    TextView nombre_usuario;
+    @Bind(R.id.url_usuario)
+    TextView url_usuario;
+    @Bind(R.id.avatar)
+    ImageView avatar;
 
 
 
@@ -38,10 +48,7 @@ public class ListaUsuariosAdapter  extends BaseAdapter {
         this.lista = lista;
         mLayout = R.layout.item_lista_usuarios;
         this.context = context;
-
     }
-
-
 
 
     @Override
@@ -66,9 +73,13 @@ public class ListaUsuariosAdapter  extends BaseAdapter {
         if (convertView == null) {
             convertView = mInflater.inflate(mLayout, parent, false);
             holder = new ViewHolder();
-            holder.nombre = (TextView) convertView.findViewById(R.id.nombre_usuario);
-            holder.url = (TextView) convertView.findViewById(R.id.url_usuario);
-            holder.avatar = (ImageView)  convertView.findViewById(R.id.avatar);
+
+            //Bind item list views
+            ButterKnife.bind(this,convertView);
+
+            holder.nombre = nombre_usuario;
+            holder.url = url_usuario;
+            holder.avatar = avatar;
             convertView.setTag(holder);
 
         } else {
@@ -85,7 +96,6 @@ public class ListaUsuariosAdapter  extends BaseAdapter {
         //La cargo en el ImageView
         Picasso.with(context).load(thumbnailUrl).into(holder.avatar);
 
-
         return convertView;
     }
 
@@ -97,10 +107,7 @@ public class ListaUsuariosAdapter  extends BaseAdapter {
 
 
 
-    public interface UpdateCallback {
-
-
-    }
+    public interface UpdateCallback{}
 
     static class ViewHolder {
 
@@ -108,10 +115,7 @@ public class ListaUsuariosAdapter  extends BaseAdapter {
         TextView url;
         ImageView avatar;
 
-
     }
-
-
 
 
 }
