@@ -1,6 +1,10 @@
 <resources>
-    <string name="app_name">Listado de perfiles de Github</string>
+    <string name="app_name">Lista de perfiles de Github</string>
     <string name="action_settings">Settings</string>
-    <string name="label_lista_usuarios">Directory</string>
+    <string name="label_lista_usuarios">Rest</string>
     <string name="error_conexion">Se ha producido un error. Intentelo de nuevo mas tarde.</string>
+    <string name="login">Login</string>
+    <string name="name">Nombre</string>
+    <string name="location">Ubicación</string>
+    <string name="label_user_detail">Perfil</string>
 </resources>
