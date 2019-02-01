@@ -115,4 +115,45 @@ public class ApiRest implements Api {
     }
 
 
+    //modificar para hacer el tratamiento específico
+    //de todas maneras puedo lanzarlo con un punto de interrupción antes de procesar
+    //el listado para probar que funciona la consulta
+    @Override
+    public void getRecetas() {
+
+
+        itemListServicesRetry = 0;
+
+        Call<UserDetail> call =  gitHubService.getRecetas("https://api.edamam.com/search?q=keto&from=0&to=10&app_id=2dd59f45&app_key=18f9d3fd293d2953868a5bffaacfc55f");
+        call.enqueue(new Callback<UserDetail>() {
+
+            @Override
+            public void onResponse(Call<UserDetail> call, Response<UserDetail> response) {
+
+                if (response.body() != null)
+                    EventBus.getDefault().post(new UserDetailEvent(false, response.body()));
+                else {
+                    itemListServicesRetry++;
+                    if (itemListServicesRetry < 3)
+                        call.clone().enqueue(this);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserDetail> call, Throwable t) {
+                itemListServicesRetry++;
+                if (itemListServicesRetry < 3) {
+                    call.clone().enqueue(this);
+                } else {
+                    EventBus.getDefault().post(new UsersListEvent(true, null));
+                }
+
+            }
+
+        });
+
+
+    }
+
+
 }

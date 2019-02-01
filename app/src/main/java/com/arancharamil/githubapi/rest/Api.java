@@ -14,5 +14,5 @@ public interface Api {
 
     void getListUsers();
     void showDetail(String user_name);
-
+    void getRecetas();
 }

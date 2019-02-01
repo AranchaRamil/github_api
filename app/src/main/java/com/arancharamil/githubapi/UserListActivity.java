@@ -75,7 +75,8 @@ public class UserListActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Log.d("GITHUB->", "onResume");
-        api.getListUsers();
+        //api.getListUsers();
+        api.getRecetas();
 
         Uri uri = resourceIdToUri(this, R.drawable.octocat_128);
         GlideApp.with(this).load(uri).transition(GenericTransitionOptions.with(R.anim.zoom_in)).apply(RequestOptions.circleCropTransform()).into(home_image);
