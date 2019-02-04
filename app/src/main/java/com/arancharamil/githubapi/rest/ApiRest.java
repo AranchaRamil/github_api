@@ -1,6 +1,7 @@
 package com.arancharamil.githubapi.rest;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.arancharamil.githubapi.events.UserDetailEvent;
 import com.arancharamil.githubapi.events.UsersListEvent;
@@ -129,6 +130,15 @@ public class ApiRest implements Api {
 
             @Override
             public void onResponse(Call<UserDetail> call, Response<UserDetail> response) {
+
+                if (response.raw().cacheResponse() != null) {
+                    Log.d("GITHUB->", "Se han recuperado datos de la CACHE");
+                }
+
+                if (response.raw().networkResponse()!= null) {
+                    // Se ha recuperado información del ws
+                    Log.d("GITHUB->", "Se han recuperado datos del WS");
+                }
 
                 if (response.body() != null)
                     EventBus.getDefault().post(new UserDetailEvent(false, response.body()));

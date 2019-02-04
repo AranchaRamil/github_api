@@ -78,7 +78,7 @@ public class RetrofitModule {
 
 
 
-
+/*
 
     private static final Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR = new Interceptor() {
         @Override
@@ -97,6 +97,41 @@ public class RetrofitModule {
                         .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
                         .build();
             }
+        }
+    };
+
+
+
+    private static final Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR = new Interceptor() {
+        @Override
+        public okhttp3.Response intercept(Chain chain) throws IOException {
+            okhttp3.Response originalResponse = chain.proceed(chain.request());
+                Log.d("GITHUB->", "Si hay datos en cache, los utilizamos");
+                int maxStale = 60 * 60 * 24 * 14; // tolerate two weeks stale
+                return originalResponse.newBuilder()
+                        .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
+                        .build();
+
+        }
+    };
+*/
+
+
+    private static final Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR = new Interceptor() {
+
+        @Override
+        public okhttp3.Response intercept(Chain chain) throws IOException {
+            okhttp3.Response originalResponse = chain.proceed(chain.request());
+
+            Log.d("GITHUB->", "Forzamos el cacheo");
+
+            okhttp3.Response hackedResponse = originalResponse
+                    .newBuilder()
+                    .header("Cache-Control", "public, max-age=3600") //se utilizan los datos de cache durante una hora
+                    .build();
+
+            return hackedResponse;
+
         }
     };
 
