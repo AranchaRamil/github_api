@@ -58,7 +58,7 @@ public class RetrofitModule {
 
 
         OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR)
+                .addNetworkInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR)
                 .addInterceptor(logging)
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(10, TimeUnit.SECONDS)
@@ -86,7 +86,7 @@ public class RetrofitModule {
             okhttp3.Response originalResponse = chain.proceed(chain.request());
             if (isNetworkAvailable(r_context)) {
                 Log.d("GITHUB->", "data avalaible");
-                int maxAge = 60; // read from cache for 1 minute
+                int maxAge = 300; // read from cache for 5 minutos
                 return originalResponse.newBuilder()
                         .header("Cache-Control", "public, max-age=" + maxAge)
                         .build();
@@ -100,8 +100,10 @@ public class RetrofitModule {
         }
     };
 
+*/
 
 
+/*
     private static final Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR = new Interceptor() {
         @Override
         public okhttp3.Response intercept(Chain chain) throws IOException {
@@ -114,8 +116,8 @@ public class RetrofitModule {
 
         }
     };
-*/
 
+*/
 
     private static final Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR = new Interceptor() {
 

@@ -125,7 +125,11 @@ public class ApiRest implements Api {
 
         itemListServicesRetry = 0;
 
-        Call<UserDetail> call =  gitHubService.getRecetas("https://api.edamam.com/search?q=keto&from=0&to=10&app_id=2dd59f45&app_key=18f9d3fd293d2953868a5bffaacfc55f");
+      Call<UserDetail> call =  gitHubService.getRecetas("https://api.edamam.com/search?q=keto&from=0&to=10&app_id=2dd59f45&app_key=18f9d3fd293d2953868a5bffaacfc55f");
+
+        //     Call<UserDetail> call =  gitHubService.getRecetas("https://publicobject.com/helloworld.txt");
+
+
         call.enqueue(new Callback<UserDetail>() {
 
             @Override
